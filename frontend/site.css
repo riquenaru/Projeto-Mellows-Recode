@@ -73,6 +73,10 @@ a:hover { color: var(--purple); }
 .book-meta { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0 0 1rem; }
 .badge-soft { display: inline-block; padding: .3rem .65rem; border-radius: 999px; background: var(--green); color: #344526; font-size: .78rem; font-weight: 800; }
 .book-card .btn { margin-top: auto; }
+.external-books { border-top: 1px solid var(--line); }
+.external-books-heading { margin-bottom: 1.5rem; }
+.external-books-heading h2 { font-weight: 800; }
+.external-books .book-cover { object-fit: contain; background: #f7f4fb; }
 .empty-state { margin-top: 1.5rem; padding: 2rem; border-radius: 1rem; background: #f8f5ff; text-align: center; }
 .narrow-content { max-width: 720px; }
 .panel-form { padding: clamp(1.3rem, 4vw, 2.5rem); border: 1px solid var(--line); border-radius: 1.2rem; background: white; box-shadow: var(--shadow); }

@@ -4,7 +4,7 @@ O Mellows é uma plataforma educacional para descobrir histórias, conhecer nív
 
 ## Fluxo principal
 
-1. Pesquise livros por título, autor ou nível de leitura.
+1. Pesquise livros por título, autor ou nível de leitura no catálogo Mellows, ou encontre títulos adicionais no Google Books.
 2. Abra os detalhes de um livro.
 3. Envie um pedido de interesse em troca; a API valida os campos e grava o pedido no PostgreSQL.
 4. Cadastre-se na comunidade com consentimento explícito; a API normaliza e-mail e impede cadastros duplicados.
@@ -18,6 +18,7 @@ O catálogo de demonstração é carregado por uma migration versionada do Flywa
 - HTML semântico e acessível, CSS responsivo e JavaScript sem framework.
 - Bootstrap 5.3.3 para navegação responsiva e componentes.
 - Busca e filtro de catálogo ligados à API; formulários exibem estados de carregamento, validação e resultado.
+- Busca no catálogo público do Google Books, feita por um endpoint da API Mellows; a chave fica somente no servidor.
 
 ### Back-end e dados
 
@@ -29,11 +30,13 @@ O catálogo de demonstração é carregado por uma migration versionada do Flywa
 
 ## Executar com Docker
 
-Requisitos: Docker com Docker Compose.
+Requisitos: Docker com Docker Compose. Para habilitar buscas no Google Books, gere uma chave de API no Google Cloud Console, habilite a Books API e configure `GOOGLE_BOOKS_API_KEY` no ambiente antes de iniciar. Restrinja a chave ao uso da Books API e mantenha-a fora do controle de versão. Sem essa chave, o restante do site funciona e a busca externa informa que não está configurada.
 
 ~~~bash
 docker compose up --build
 ~~~
+
+Opcionalmente, configure a chave no shell antes do comando (`export GOOGLE_BOOKS_API_KEY=sua_chave`) ou em um arquivo `.env` local, que é ignorado pelo Git.
 
 Quando os serviços estiverem prontos, abra [http://localhost:8080](http://localhost:8080). A primeira inicialização compila a API, inicia o PostgreSQL, aplica as migrations e carrega os livros de exemplo.
 
@@ -65,6 +68,7 @@ O Maven copia os arquivos do diretório frontend/ para a aplicação durante o b
 | --- | --- | --- |
 | GET | /api/books?q=alice&level=AVANCADO | Lista livros ativos com filtros opcionais |
 | GET | /api/books/{id} | Retorna os detalhes de um livro |
+| GET | /api/google-books?q=infantil | Pesquisa títulos públicos no Google Books (requer `GOOGLE_BOOKS_API_KEY`) |
 | POST | /api/community-signups | Cria um cadastro de comunidade com consentimento |
 | POST | /api/exchange-requests | Registra interesse em trocar um livro |
 | GET | /actuator/health | Estado de saúde da API |

@@ -23,6 +23,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/mellows
       SPRING_DATASOURCE_USERNAME: mellows
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-mellows_dev}
+      GOOGLE_BOOKS_API_KEY: ${GOOGLE_BOOKS_API_KEY:-}
     ports:
       - "${APP_PORT:-8080}:8080"
     depends_on:

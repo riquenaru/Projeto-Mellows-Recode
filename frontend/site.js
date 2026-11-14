@@ -103,6 +103,54 @@ async function loadBookCount() {
     }
 }
 
+function createGoogleBookCard(book) {
+    const article = document.createElement('article');
+    article.className = 'book-card';
+    const cover = document.createElement('img');
+    cover.className = 'book-cover';
+    cover.src = book.thumbnail || './Img/melows.png';
+    cover.alt = book.thumbnail ? `Capa de ${book.title}` : 'Capa indisponível';
+    cover.loading = 'lazy';
+    article.append(cover);
+
+    const body = document.createElement('div');
+    body.className = 'book-card-body';
+    const title = document.createElement('h2'); title.textContent = book.title;
+    const author = document.createElement('p'); author.textContent = book.authors?.length ? `Por ${book.authors.join(', ')}` : 'Autor não informado';
+    const description = document.createElement('p'); description.textContent = book.description || 'Sem descrição disponível.';
+    const meta = document.createElement('p'); meta.className = 'book-meta';
+    if (book.publishedDate) { const date = document.createElement('span'); date.className = 'badge-soft'; date.textContent = `Publicado em ${book.publishedDate}`; meta.append(date); }
+    const link = document.createElement('a'); link.className = 'btn btn-outline-primary';
+    link.href = book.infoLink; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = 'Ver no Google Books';
+    body.append(title, author, description, meta, link);
+    article.append(body);
+    return article;
+}
+
+function searchGoogleBooks() {
+    const form = document.querySelector('[data-google-books-search]');
+    if (!form) return;
+    const grid = document.querySelector('[data-google-books-grid]');
+    const status = document.querySelector('[data-google-books-status]');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const query = form.elements.q.value.trim();
+        grid.replaceChildren();
+        status.textContent = 'Buscando livros…';
+        const params = new URLSearchParams({ q: query });
+        try {
+            const books = await apiRequest(`${API_BASE_URL}/google-books?${params}`);
+            books.forEach((book) => grid.append(createGoogleBookCard(book)));
+            status.textContent = books.length ? `${books.length} resultados encontrados no Google Books.` : 'Nenhum livro encontrado. Tente outro título, autor ou assunto.';
+        } catch (error) {
+            status.textContent = error.status === 503
+                ? 'A busca externa ainda não está configurada. Defina GOOGLE_BOOKS_API_KEY no servidor.'
+                : error.message;
+        }
+    });
+}
+
 async function loadBookDetail() {
     const container = document.querySelector('[data-book-detail]');
     if (!container) return;
@@ -208,6 +256,7 @@ async function loadExchangeBookOptions() {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadCatalog();
+    searchGoogleBooks();
     loadBookCount();
     loadBookDetail();
     submitSignup();

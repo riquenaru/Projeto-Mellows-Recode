@@ -49,6 +49,17 @@
       <div class="book-grid" data-book-grid></div>
       <div class="empty-state" data-empty-state hidden><h3>Nenhum livro encontrado</h3><p>Tente outro termo ou selecione todos os níveis.</p><button class="btn btn-outline-primary" type="button" data-reset-filters>Limpar filtros</button></div>
     </section>
+    <section class="container section-block external-books" aria-labelledby="google-books-title">
+      <div class="external-books-heading">
+        <div><p class="eyebrow">Acervo externo</p><h2 id="google-books-title">Explore o Google Books</h2><p>Encontre outras leituras no catálogo público do Google Books.</p></div>
+      </div>
+      <form class="catalog-toolbar" data-google-books-search role="search">
+        <div class="field-grow"><label for="google-book-query" class="form-label">Título, autor ou assunto</label><input id="google-book-query" class="form-control form-control-lg" type="search" name="q" placeholder="Ex.: literatura infantil" autocomplete="off" required minlength="2" maxlength="100"></div>
+        <button class="btn btn-primary btn-lg" type="submit">Buscar no Google Books</button>
+      </form>
+      <p class="results-status" data-google-books-status role="status" aria-live="polite">Digite pelo menos dois caracteres para pesquisar.</p>
+      <div class="book-grid" data-google-books-grid></div>
+    </section>
   </main>
   <footer class="site-footer">
     <div class="container footer-inner">
