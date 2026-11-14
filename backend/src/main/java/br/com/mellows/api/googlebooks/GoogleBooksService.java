@@ -2,6 +2,7 @@ package br.com.mellows.api.googlebooks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URI;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,14 +29,14 @@ public class GoogleBooksService {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE,
                     "Busca Google Books não configurada. Defina GOOGLE_BOOKS_API_KEY no servidor.");
         }
-        String uri = UriComponentsBuilder.fromUriString(API_URL)
+        URI uri = UriComponentsBuilder.fromUriString(API_URL)
                 .queryParam("q", query)
                 .queryParam("maxResults", 12)
                 .queryParam("printType", "books")
                 .queryParam("projection", "lite")
                 .queryParam("orderBy", "relevance")
                 .queryParam("key", apiKey)
-                .build().encode().toUriString();
+                .build().encode().toUri();
         try {
             JsonNode response = restClient.get().uri(uri).retrieve().body(JsonNode.class);
             if (response == null || !response.path("items").isArray()) return List.of();

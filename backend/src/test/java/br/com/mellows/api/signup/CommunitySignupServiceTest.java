@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doAnswer;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +27,7 @@ class CommunitySignupServiceTest {
     void trimsNameAndNormalizesEmailBeforeSaving() {
         CommunitySignupRequest request = new CommunitySignupRequest("  Ana Leitora  ", " ANA@EXAMPLE.COM ", true);
         when(repository.existsByEmailIgnoreCase("ana@example.com")).thenReturn(false);
+        doAnswer(invocation -> invocation.getArgument(0)).when(repository).save(any(CommunitySignup.class));
 
         service.create(request);
 
