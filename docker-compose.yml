@@ -1,0 +1,33 @@
+services:
+  database:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: mellows
+      POSTGRES_USER: mellows
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-mellows_dev}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - mellows-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mellows -d mellows"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+  app:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/mellows
+      SPRING_DATASOURCE_USERNAME: mellows
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-mellows_dev}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+
+volumes:
+  mellows-data:

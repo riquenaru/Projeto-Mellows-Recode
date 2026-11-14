@@ -1,0 +1,6 @@
+.git
+.github
+**/target
+**/.DS_Store
+README.md
+Modelo banco de dados
