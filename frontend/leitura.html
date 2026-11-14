@@ -37,11 +37,11 @@
     </nav>
   </header>
   <main id="main-content">
-    <section class="page-hero"><div class="container"><p class="eyebrow">Catálogo Mellows</p><h1>Leituras para descobrir</h1><p>Pesquise uma história e filtre pelo nível recomendado.</p></div></section>
+    <section class="page-hero"><div class="container"><p class="eyebrow">Catálogo Mellows + Google Books</p><h1>Leituras para descobrir</h1><p>Pesquise por título ou autor para consultar o catálogo Mellows e o Google Books de uma só vez.</p></div></section>
     <section class="container section-block" aria-labelledby="catalog-title">
       <h2 class="visually-hidden" id="catalog-title">Catálogo de livros</h2>
       <form class="catalog-toolbar" data-catalog-filters role="search">
-        <div class="field-grow"><label for="book-search" class="form-label">Buscar por título ou autor</label><input id="book-search" class="form-control form-control-lg" type="search" name="q" placeholder="Ex.: Rapunzel" autocomplete="off"></div>
+        <div class="field-grow"><label for="book-search" class="form-label">Buscar no Mellows e no Google Books</label><input id="book-search" class="form-control form-control-lg" type="search" name="q" placeholder="Ex.: Rapunzel ou literatura infantil" autocomplete="off" maxlength="100"></div>
         <div class="field-level"><label for="reading-level" class="form-label">Nível de leitura</label><select id="reading-level" class="form-select form-select-lg" name="level"><option value="">Todos</option><option value="INICIANTE">Iniciante</option><option value="INTERMEDIARIO">Intermediário</option><option value="AVANCADO">Avançado</option></select></div>
         <button class="btn btn-primary btn-lg" type="submit">Buscar</button>
       </form>
@@ -51,13 +51,9 @@
     </section>
     <section class="container section-block external-books" aria-labelledby="google-books-title">
       <div class="external-books-heading">
-        <div><p class="eyebrow">Acervo externo</p><h2 id="google-books-title">Explore o Google Books</h2><p>Encontre outras leituras no catálogo público do Google Books.</p></div>
+        <div><p class="eyebrow">Acervo externo</p><h2 id="google-books-title">Resultados do Google Books</h2><p>Esses títulos vêm do catálogo público do Google Books. Use a busca acima para consultá-los junto com o catálogo Mellows.</p></div>
       </div>
-      <form class="catalog-toolbar" data-google-books-search role="search">
-        <div class="field-grow"><label for="google-book-query" class="form-label">Título, autor ou assunto</label><input id="google-book-query" class="form-control form-control-lg" type="search" name="q" placeholder="Ex.: literatura infantil" autocomplete="off" required minlength="2" maxlength="100"></div>
-        <button class="btn btn-primary btn-lg" type="submit">Buscar no Google Books</button>
-      </form>
-      <p class="results-status" data-google-books-status role="status" aria-live="polite">Digite pelo menos dois caracteres para pesquisar.</p>
+      <p class="results-status" data-google-books-status role="status" aria-live="polite">Os resultados externos aparecem aqui quando você faz uma busca acima.</p>
       <div class="book-grid" data-google-books-grid></div>
     </section>
   </main>

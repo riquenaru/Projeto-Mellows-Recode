@@ -82,7 +82,11 @@ async function loadCatalog() {
         }
     }
 
-    searchForm?.addEventListener('submit', (event) => { event.preventDefault(); refresh(); });
+    searchForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        refresh();
+        searchGoogleBooks(search?.value.trim() || '');
+    });
     level?.addEventListener('change', refresh);
     document.querySelector('[data-reset-filters]')?.addEventListener('click', () => {
         if (search) search.value = '';
@@ -127,28 +131,27 @@ function createGoogleBookCard(book) {
     return article;
 }
 
-function searchGoogleBooks() {
-    const form = document.querySelector('[data-google-books-search]');
-    if (!form) return;
+function searchGoogleBooks(query) {
     const grid = document.querySelector('[data-google-books-grid]');
     const status = document.querySelector('[data-google-books-status]');
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        if (!form.reportValidity()) return;
-        const query = form.elements.q.value.trim();
-        grid.replaceChildren();
-        status.textContent = 'Buscando livros…';
-        const params = new URLSearchParams({ q: query });
-        try {
-            const books = await apiRequest(`${API_BASE_URL}/google-books?${params}`);
+    if (!grid || !status) return;
+    grid.replaceChildren();
+    if (query.length < 2) {
+        status.textContent = 'Digite pelo menos dois caracteres na busca acima para consultar o Google Books.';
+        return;
+    }
+    status.textContent = 'Buscando livros no Google Books…';
+    const params = new URLSearchParams({ q: query });
+    apiRequest(`${API_BASE_URL}/google-books?${params}`)
+        .then((books) => {
             books.forEach((book) => grid.append(createGoogleBookCard(book)));
-            status.textContent = books.length ? `${books.length} resultados encontrados no Google Books.` : 'Nenhum livro encontrado. Tente outro título, autor ou assunto.';
-        } catch (error) {
+            status.textContent = books.length ? `${books.length} resultados encontrados no Google Books.` : 'Nenhum livro encontrado no Google Books para essa busca.';
+        })
+        .catch((error) => {
             status.textContent = error.status === 503
-                ? 'A busca externa ainda não está configurada. Defina GOOGLE_BOOKS_API_KEY no servidor.'
-                : error.message;
-        }
-    });
+                ? 'A busca Google Books ainda não está configurada no servidor (GOOGLE_BOOKS_API_KEY).'
+                : `Não foi possível consultar o Google Books. ${error.message}`;
+        });
 }
 
 async function loadBookDetail() {
@@ -256,7 +259,6 @@ async function loadExchangeBookOptions() {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadCatalog();
-    searchGoogleBooks();
     loadBookCount();
     loadBookDetail();
     submitSignup();
