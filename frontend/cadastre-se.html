@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mellows: leitura compartilhada e troca de livros para crianças e famílias.">
+  <title>Participar | Mellows</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="./site.css">
+  <script src="./site.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg" aria-label="Navegação principal">
+      <div class="container">
+        <a class="navbar-brand" href="./index.html" aria-label="Mellows, página inicial">
+          <img src="./Img/logoMellows.png" alt="Mellows" width="164" height="54">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Abrir menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavigation">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="./index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="./leitura.html">Leituras</a></li>
+          <li class="nav-item"><a class="nav-link" href="./trocaLivros.html">Troca de livros</a></li>
+          <li class="nav-item"><a class="nav-link" href="./quemSomos.html">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link active" href="./cadastre-se.html" aria-current="page">Participar</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main id="main-content">
+    <section class="page-hero"><div class="container"><p class="eyebrow">Participe</p><h1>Entre para a comunidade</h1><p>Cadastre seu interesse para receber informações sobre leituras e trocas do Mellows.</p></div></section>
+    <section class="container section-block narrow-content"><form class="panel-form" data-signup-form>
+      <h2>Quero acompanhar o Mellows</h2><p class="form-intro">Seus dados serão usados somente para este cadastro demonstrativo.</p>
+      <div class="mb-3"><label class="form-label" for="signup-name">Nome</label><input class="form-control form-control-lg" id="signup-name" name="name" autocomplete="name" maxlength="100" required></div>
+      <div class="mb-3"><label class="form-label" for="signup-email">E-mail</label><input class="form-control form-control-lg" id="signup-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+      <div class="form-check mb-3"><input class="form-check-input" id="signup-consent" name="consent" type="checkbox" required><label class="form-check-label" for="signup-consent">Concordo que meu nome e e-mail sejam armazenados para este cadastro demonstrativo.</label></div>
+      <button class="btn btn-primary btn-lg w-100" type="submit">Enviar cadastro</button>
+      <p class="form-feedback" data-signup-status role="status" aria-live="polite"></p>
+    </form></section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><a class="footer-brand" href="./index.html">Mellows</a><p>Histórias aproximam pessoas. Compartilhe uma leitura.</p></div>
+      <div class="footer-links" aria-label="Links do rodapé"><a href="./leitura.html">Explorar leituras</a><a href="./trocaLivros.html">Troca de livros</a><a href="mailto:contato@mellows.com.br">Fale com a equipe</a></div>
+      <small>Projeto educacional Recode Pro · Interface demonstrativa</small>
+    </div>
+  </footer>
+</body>
+</html>
